@@ -6,6 +6,7 @@ use context starter2024
 7 * (12 + 3)
 
 #compare two results: two expressions are with a difference of 2*(12+3)
+(7 * (12 + 3)) - (5 * (12 + 3))
 
 
 # T-shirt shop: 2.Rectangular Poster
@@ -54,7 +55,11 @@ use context starter2024
 rectangle(40,100,"solid", "black")
 
 #3.Make a Traffic Light:2.Lights
+overlay-align("center", "middle",
+  above(circle(15,"solid","red"),
+    above(circle(15,"solid","yellow") , 
+      circle(15,"solid","green"))), 
+  rectangle(40,100,"solid", "black"))
 
-overlay((circle(15,"solid","green")),(rectangle(40,100,"solid", "black")))
-above((circle(15,"solid","yellow")),(circle(15,"solid","green"))
+
 
