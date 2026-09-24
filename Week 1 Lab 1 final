@@ -1,5 +1,3 @@
-use context starter2024
-
 # T-shirt shop: 1.Calculating Cost
 
 5 * (12 + 3)
@@ -55,31 +53,32 @@ use context starter2024
 #3.Make a Traffic Light:1.Frame
 rectangle(40,100,"solid", "black")
 
+
 #|3.Make a Traffic Light:2.Lights
 overlay-align("center", "middle",
   above(circle(15,"solid","red"),
     above(circle(15,"solid","yellow") , 
       circle(15,"solid","green"))), 
     rectangle(40,100,"solid", "black"))
-|#
 
 #3.Make a Traffic Light:2.Lights
 overlay-align("center", "middle",
   above(circle(15,"solid","red"),
     above(circle(15,"solid","yellow") , 
-      circle(15,"solid","green"))), 
+     circle(15,"solid","green"))), 
   rectangle(40,100,"solid", "black"))
 
 #i am going to make the pole seperately, and then connect it with the body of traffic light.
 pole=rectangle(10,55,"solid","black")
+
 
 body=overlay-align("center", "middle",
   above(circle(15,"solid","red"),
     above(circle(15,"solid","yellow") , 
       circle(15,"solid","green"))), 
     rectangle(40,100,"solid", "black"))
-
-
+    
+above(body,pole)
 #Broken Code Hunt
 
 #| Goal: A rectangle with width 50 and height 20, solid black
@@ -127,3 +126,6 @@ design-on-shield=overlay(star-on-shield,circle-on-shield)
 overlay(design-on-shield,shield)
 
 #that conclude the assignment
+=======
+
+>>>>>>> 93b31528afdf189ef34a099bf59e2420cf8bdac1
