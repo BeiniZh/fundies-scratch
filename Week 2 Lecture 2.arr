@@ -17,14 +17,16 @@ x="isabella"
 y="Rei"
 z="Adi"
 
-fun area(width,height):
+#|fun area(width,height):
   width * height
-end
-
-check:
+   end
+  
+  check:
   area(3,20) is 3 * 20
   area(4,50) is 4 * 50
-end
+end|#
+
+
 
 #now the welcome function only contains one string,to fix this, we should put type annotations on all functions we write—both to communicate to people reading the code what type of values we expect, but also to allow Pyret to report better errors in case of mistakes. We should also indicate the type of value we are going to return!
 
@@ -62,9 +64,67 @@ austria = frame(
       rectangle(120, 30, "solid", "red"))))
 
 
-fun three-stripe-flag(top,middle,bottom):
+fun three-stripe-flag(
+    top :: String,
+    middle :: String,
+    bottom :: String)
+  -> Image:
+  
+  doc:"returns a flag with three stripes"
   frame(
     above(rectangle(120,30, "solid", top),
       above(rectangle(120,30, "solid", middle),
         rectangle(120,30, "solid", bottom))))
 end
+
+
+
+
+
+
+
+#Class Exercise
+#|Writing Good Doc Strings
+Write a doc string and add types for the following function
+Take a look at some of the documentation for Pyret functions (ie Number functionsLinks to an external site.) to get a sense of how to write a clear explanation, notice how the verb "returns" is used to describe the output of a function|#
+
+fun area(
+    width :: Number, 
+    height :: Number)
+  -> Number:
+  doc:"calculates the area of quadrilateral"
+  
+  width * height
+end
+
+#No matter which programming language we are using, always add a doc and annotation
+
+
+#Function Design Process 1
+#Total_cost = 7 * (5.00 + (string-length("Go Team!") * 0.10)
+  fun total_cost(
+    num_tshirts :: Number,
+    shirt_string :: String) 
+  ->Number:
+    doc:"Calculate the price of t-shirts based in quantity and number of characters printed on it"
+  num_tshirts * (5.00 + (string-length(shirt_string)  * 0.10))
+end
+  
+
+  
+#Function Design Process 2
+fun celsius-to-fahrenheit(
+    celsius :: Number)
+  -> Number:
+    doc:"Convert the temperture in Celsius to Fahrenheit"
+  ( celsius * (9/5) ) + 32
+end
+  
+#Function Design Process 2
+fun fahrenheit-to-celsius(
+    fahrenheit :: Number)
+  -> Number:
+  doc:"Convert the temperture in Fahrenheit to Celsius"
+  ( fahrenheit - 32 ) * (5/9)
+end
+  
