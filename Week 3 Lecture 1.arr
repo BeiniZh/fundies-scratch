@@ -42,4 +42,23 @@ where:
   choose-hat(27) is "no hat"
 end
 
+
+#the process of fixing the error is called debugging, and we will use "spy"
+fun choose-hat-spy(temp-in-C :: Number) -> String:
+  doc: "determines appropriate head gear, with above 27C a sun hat, below nothing"
+  spy:
+    temp-in-C
+  end  
+  if temp-in-C > 27:
+    "sun hat"
+  else:
+    "no hat"
+  end
+where:
+  choose-hat-spy(25) is "no hat"
+  choose-hat-spy(32) is "sun hat"
+  choose-hat-spy(27) is "sun hat"
+end
+ 
+
     
