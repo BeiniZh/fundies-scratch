@@ -47,9 +47,12 @@ end
 fun choose-hat-spy(temp-in-C :: Number) -> String:
   doc: "determines appropriate head gear, with above 27C a sun hat, below nothing"
   spy:
-    temp-in-C
-  end  
-  if temp-in-C > 27:
+    temp-in-C,
+    #there should a comma, if you are writing to conditions
+    comparison: temp-in-C > 27
+  end
+  #remeber to always end the block
+  if temp-in-C >= 27:
     "sun hat"
   else:
     "no hat"
@@ -59,6 +62,19 @@ where:
   choose-hat-spy(32) is "sun hat"
   choose-hat-spy(27) is "sun hat"
 end
- 
+#this is what we use to find where the error is 
 
+
+#|
+   The full design recipe
+  Four steps: do them in this order, and write the code last
+   1.Type annotation:what goes in, and what comes out
+   (ex.(temp-in-C :: Number) -> String:),if we don't do this      ,this could cause errors.
+   
+   2.Docstring:one Englih sentence saying hwat it is for
+   3.Examples:concrete input.output paris in a where: block
+   4.Code: the body, written last
+ 
+|#
+   
     
