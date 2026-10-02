@@ -76,4 +76,7 @@ recipes.length()
 
 mean(recipes,"prep-time")
     
-#instead of specify the csv, 
+#instead of specify the csv, see lecture 2 csv file
+
+hist-plot = histogram(recipes,"prep-time", 50)
+bp = box-plot(recipes, "serving")
