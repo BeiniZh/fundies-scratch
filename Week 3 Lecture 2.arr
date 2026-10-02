@@ -64,10 +64,16 @@ recipes = load-table:
   title :: String,
   servings :: Number,
   prep-time :: Number
+  # If we didn't include all the rows, then we will get an error
   source: csv-table-url("https://raw.githubusercontent.com/NU-London/LCSCI4207-datasets/refs/heads/main/recipes.csv",default-options)
   sanitize servings using num-sanitizer
   sanitize prep-time using num-sanitizer
 end
 
 recipes
+
+recipes.length()
+
+mean(recipes,"prep-time")
     
+#instead of specify the csv, 
