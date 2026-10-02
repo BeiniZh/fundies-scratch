@@ -61,12 +61,15 @@ modes(workouts, "duration")
 
 recipes = load-table:
   #we need to specify the colmns that actually exist in the csv
-  title :: String,
-  servings :: Number,
-  prep-time :: Number
-  # If we didn't include all the rows, then we will get an error
+  plant_common_name :: String,
+  location_longitude :: Number,
+  date_sighted :: Number,
+  soil_type :: String,
+  plant_height_cm :: Number,
+  plant_color :: String,
+
   source: csv-table-url("https://raw.githubusercontent.com/NU-London/LCSCI4207-datasets/refs/heads/main/recipes.csv",default-options)
-  sanitize servings using num-sanitizer
+  sanitize plant_common using num-sanitizer
   sanitize prep-time using num-sanitizer
 end
 
@@ -78,5 +81,19 @@ mean(recipes,"prep-time")
     
 #instead of specify the csv, see lecture 2 csv file
 
-hist-plot = histogram(recipes,"prep-time", 50)
-bp = box-plot(recipes, "serving")
+histo = histogram(recipes,"prep-time", 50)
+box-plot(recipes, "servings")
+
+
+
+
+plant = load-table:
+ 
+  title :: String,
+  servings :: Number,
+  prep-time :: Number
+  # If we didn't include all the rows, then we will get an error
+  source: csv-table-url("https://raw.githubusercontent.com/NU-London/LCSCI4207-datasets/refs/heads/main/plant_sightings.csv",default-options)
+  sanitize servings using num-sanitizer
+  sanitize prep-time using num-sanitizer
+end
