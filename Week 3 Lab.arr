@@ -1,4 +1,6 @@
-use context starter2024
+use context dcic2024
+include csv
+include data-source
 
 #Problem 1
 fun leap-year-test(
@@ -54,6 +56,42 @@ end
 
 #Problem 4
 
+planets = table: planet :: String, Distance :: Number
+  row:"Mercury",0.39
+  row:"Venus",0.72
+  row:"Earth",1
+  row:"Mars",1.52
+  row:"Jupiter",5.2
+  row:"Saturn",9.54
+  row:"Uranus",19.2
+  row:"Neptune",30.06
+end
 
+mars = planets.row-n(3)
+planets.row-n(3)["Distance"]
+mars
 
+#Problem 5
+something = load-table:
+  year :: Number,
+  day :: Number,
+  month :: String,
+  rate :: Number
+  source: csv-table-file("boe_rates.csv", default-options)
     
+  sanitize year using num-sanitizer
+  sanitize day using num-sanitizer
+  sanitize month using string-sanitizer
+  sanitize rate using num-sanitizer
+    
+end
+
+something.length()
+median(something, "rate")
+modes(something, "rate")
+
+#this is the order of ascending order, for the first number we get will be the minimum number
+order-by(something,"rate",true).row-n(0)["rate"]
+
+#this is the order of descending order, for the first number we get will be the maximum number
+order-by(something,"rate",false).row-n(0)["rate"]
