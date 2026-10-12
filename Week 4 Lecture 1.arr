@@ -17,6 +17,8 @@ orders = table: time, amount
   row: "16:45", 7.95
 end
 
+orders.row-n(2)
+
 fun is-high-value(o :: Row) -> Boolean:
   o["amount"] >= 8.0
   #it's going to pass a complete row for this function, and returns with a boolean
@@ -59,3 +61,16 @@ filter-with(orders, lam(o): o["amount"] >= 8.0 end)
 #order-by
 order-by(orders, "amount", true)#ascending order
 order-by(orders, "amount", false)#decending order
+
+
+#|In Class Exercise
+fun is-morning(Time :: String)
+  -> Boolean:
+  doc:"determine the time of a day which if it is in the morning"
+  Time["time"] < "12:00"
+
+where:
+  is-morning(orders.row-n(3)) is true
+  is-morning(orders.row-n(5)) is false
+end
+
