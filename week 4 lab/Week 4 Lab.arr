@@ -57,4 +57,9 @@ fun is_delayed_departure(row :: Row)->Boolean:
   row["dep_delay"] >= 30
 end
 
-fun is_morning_sched_dep(row0
+fun is_morning_sched_dep(row :: Row)->Boolean:
+  doc:"checks if the scheduled departure time is before noon"
+  row["sched_dep_time"] < 1200
+end
+
+delayed-and-noon = filter-with(flights, lam(o): o["dep_delay"] >= 30 end)
