@@ -18,6 +18,38 @@ include data-source
 |#
 
 #load voters data
+#Not specifying the specific data type is ok, although that will be a better approach
+
 voter-data = load-table: VoterID, DOB, Party, Address, City, County, Postcode
   source:csv-table-url("https://raw.githubusercontent.com/NU-London/LCSCI4207-datasets/refs/heads/main/voters.csv", default-options)
 end
+
+#voter-data.row-n(0)["voterID"]在右边输入，可以得到结果
+#confirm the party problem
+filter-with(voter-data,lam(r):r["Party"] == "Labour" end).length() 
+# =>4
+
+voter-data.row-n(3)["Party"]
+#=>Labour
+
+order-by(count(voter-data,"Party"),"count",false)
+
+#reading on value with get-column
+fun get-column(r :: Row, colname :: String):
+  doc:"returns the value in row r for the column colname"
+  r[colname]
+where: 
+  get-column(voter-data.row-n(3),"Party") is "Labuor"
+  get-column(voter-data.row-n(0),"VoterID") is "1"
+end
+
+filter-with(voter-data, lam(r):get-column(r,"Party") == "Labour" end).length()
+
+get-column(voter-data.row-n(3),"Party")
+
+
+#Only extract the 6th-10th digits of the string because only the 6th-10th is the year of teh DOB, all other before the 6th is the day and month.
+
+with-year = build-column(voter-data,"BirthYear",lam(r):string-substring(get-column(r,"DOB"),6,10)end)
+
+get-column(with-year.row-n(0),"BirthYear")
