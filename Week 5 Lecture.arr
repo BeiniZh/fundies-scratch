@@ -53,3 +53,25 @@ get-column(voter-data.row-n(3),"Party")
 with-year = build-column(voter-data,"BirthYear",lam(r):string-substring(get-column(r,"DOB"),6,10)end)
 
 get-column(with-year.row-n(0),"BirthYear")
+
+#fixing the typo
+fun fix-labour(s :: String) -> String:
+  doc:"corrects the one known misspelling of Labour"
+  if s == "Labuor" : "Labour"
+  else if s == "": "None" 
+  else: s 
+  end
+   
+where:
+  fix-labour("Labuor") is "Labour"
+  #fix-labour("") is "None"
+  fix-labour("Green Party") is "Green Party"
+end
+
+#try using transform-column
+
+fixed = transform-column(voter-data,"Party",fix-labour)
+
+#this will display the bar plots
+decending-order-fixed = order-by(count(fixed,"Party"),"count",false)
+freq-bar-chart(decending-order-fixed,"Party")
