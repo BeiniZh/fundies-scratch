@@ -57,9 +57,28 @@ fun is_delayed_departure(row :: Row)->Boolean:
   row["dep_delay"] >= 30
 end
 
+<<<<<<< HEAD
 fun is_morning_sched_dep(row :: Row)->Boolean:
   doc:"checks if the scheduled departure time is before noon"
   row["sched_dep_time"] < 1200
 end
 
 delayed-and-noon = filter-with(flights, lam(o): o["dep_delay"] >= 30 end)
+
+flights-distance-largerthan500 = filter-with(delayed-and-noon,lam(o):o["distance"] > 500 end)
+
+oder-dep-delay = order-by(flights,dep_delay,false)
+
+worse-flight-origin-dep_delay = load table:
+  flight :: string,
+  origin :: string,
+  dep_delay :: Number
+  
+  
+end
+#|
+fun is_morning_sched_dep(row :: Row)->Boolean:
+  doc:"checks if the scheduled departure time is before noon"
+  row["sched_dep_time"] < 1200
+end
+
