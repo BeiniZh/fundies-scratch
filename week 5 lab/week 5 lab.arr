@@ -35,6 +35,74 @@ include data-source
 
 
 # Task 2
-# Replace missing values in tailnum with "UNKNOWN"
+# load table
+flights-53 = load-table:
+  rownames :: Number,
+  dep_time :: Number,
+  sched_dep_time :: Number,
+  dep_delay :: Number,
+  arr_time :: Number,
+  sched_arr_time :: Number,
+  arr_delay :: Number,
+  carrier :: String,
+  flight :: String,
+  tailnum :: String,
+  origin :: Stirng,
+  dest :: String,
+  air_time :: Number,
+  distance :: Number,
+  hour :: Number,
+  minute :: Number,
+  time_hour :: String
+  source:csv-table-file("flights_sample53.csv",default-options)
+  sanitize rownames using num-sanitizer
+  sanitize dep_time using num-sanitizer
+  sanitize sched_dep_time using num-sanitizer
+  sanitize dep_delay using num-sanitizer
+  sanitize arr_time using num-sanitizer
+  sanitize sched_arr_time using num-sanitizer
+  sanitize arr_delay using num-sanitizer
+  sanitize air_time using num-sanitizer
+  sanitize distance using num-sanitizer
+  sanitize hour using num-sanitizer
+  sanitize minute using num-sanitizer
+end
+
+#|
+   1.Replace missing values in tailnum with "UNKNOWN"
+|#
+    
+fix-tailnum =
+  lam(t):
+    if t == "" : "UNKNOWN"
+    else: t
+    end
+    end
+  check:
+  fix-tailnum("") is "UNKNOWN"
+  fix-tailnum("Hello") is "Hello"
+  end
+
+tailnum-fixed = transform-column(flights-53,"tailnum",fix-tailnum)
+
+#|
+   replace negative values
+|#
+replace-negative-dep-arr =
+  lam(d):
+    if d < 0 : 0
+    else: d
+    end
+  end
+check:
+  replace-negative-dep-arr(-5) is 0
+  replace-negative-dep-arr(0) is 0
+  replace-negative-dep-arr(5) is 5
+end
+
+negative-arr-replaced = transform-column(flights-53,"dep_delay",replace-negative-dep-arr)
+
+negative-dep-replaced = transform-column(flights-53,"arr_delay",replace-negative-dep-arr)
 
 
+  
