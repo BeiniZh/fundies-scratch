@@ -65,3 +65,29 @@ fun my-sum(l):
 where:
   my-sum([list: 4 ,5, 6]) is 15
 end
+
+#my-double, and the tempting mistake
+
+[list: 3 * 2,[list:10, 4]] #[list: 6,[list:10,4]]
+link(3 * 2,[list:10, 4])   #[list: 6,10,4]
+
+fun my-double(l):
+  cases (List)l:
+    |empty => empty
+    |link(f,r) => link(f * 2,my-double(r))
+  end
+where:
+  my-double([list:3,5,2]) is [list:6,10,4]
+end
+
+my-double([list: 3,5,2])
+
+check:
+  my-double([list:3,5,2]) is link(6,link(10,link(4,empty)))
+  my-double([list:3, 5, 2]) is-not [list: 3 * 2, my-double([list: 5, 2])]
+end
+
+
+
+
+         
