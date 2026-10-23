@@ -36,7 +36,7 @@ include data-source
 
 # Task 2
 # load table
-flights-53 = load-table:
+flights53 = load-table:
   rownames :: Number,
   dep_time :: Number,
   sched_dep_time :: Number,
@@ -83,7 +83,7 @@ fix-tailnum =
   fix-tailnum("Hello") is "Hello"
   end
 
-tailnum-fixed = transform-column(flights-53,"tailnum",fix-tailnum)
+tailnum-fixed = transform-column(flights53,"tailnum",fix-tailnum)
 
 #|
    replace negative values
@@ -100,9 +100,67 @@ check:
   replace-negative-dep-arr(5) is 5
 end
 
-negative-arr-replaced = transform-column(flights-53,"dep_delay",replace-negative-dep-arr)
+negative-arr-replaced = transform-column(flights53,"dep_delay",replace-negative-dep-arr)
 
-negative-dep-replaced = transform-column(flights-53,"arr_delay",replace-negative-dep-arr)
+negative-dep-replaced = transform-column(flights53,"arr_delay",replace-negative-dep-arr)
 
 
-  
+
+#Identify Duplicate Rows from the Table
+# Not sure how to do ths question, in order to let the code works, i will put all those codes in note.
+
+#|
+flight-string = num-to-string(row.flight)
+# Trim spaces at both ends
+
+fun trim(s :: String) -> String:
+  doc: "Remove spaces from the given string."
+  n = string-length(s)
+  if n == 0:
+    ""
+  else:
+    string-replace(s, " ", "")
+  end
+end
+
+#converting it to uppercase for consistency
+Upp-C = string-to-upper(trim.row("carrier"))
+
+#Normalise departure times
+#|
+   i don't know how to do this part
+   hour = flights-53.row(dep_time) / 100
+   min = flights-53.row(dep_time)
+   
+|#
+
+flights_key = build-column(flights-53, "dedup_key", lam(row):
+    f-string = num-to-string(row.flights-53)
+    c-string = string-to-upper(trim(row.carrier))
+    time-string = row.dep_time
+    
+    string-append(string-append(string-append(string-append(f-string, "-"), c-string), "-"), time-string)
+  end)
+|#
+
+
+# Task 4
+bar-chart(flights53, "carrier")
+histogram(flights53, "distance")
+scatter-plot(flights53, "air_time", "distance")
+
+distance-list = flights53.get-column("distance")
+
+var total-distance = 0
+var max-distance = 0
+
+for each(d from distance-list):
+  block:
+  total-distance := total-distance + d
+  when d > max-distance: max-distance := d
+  end
+  end
+end
+
+
+avg-distance = total-distance / length(distance-list)
